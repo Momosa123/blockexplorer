@@ -49,8 +49,6 @@ function App() {
         const lastBlock = await fetchTransactions(latestBlockNumber);
         setLastBlock(lastBlock);
 
-        setTransactions(lastBlock.transactions.slice(0, 6));
-
         if (blockNumber) {
           const lastBlockNumbers = [];
           for (let i = 1; i < 7; i++) {
@@ -60,8 +58,9 @@ function App() {
           const responses = await Promise.all(
             lastBlockNumbers.map(element => fetchTransactions(element))
           );
-          console.log(lastBlock);
+
           setLatestBlocks(responses);
+          setTransactions(lastBlock.transactions.slice(0, 6));
         }
       } catch (error) {
         console.log("Something went wrong");
@@ -71,11 +70,11 @@ function App() {
     }
     fetchData();
   }, [blockNumber]);
-
+  console.log(Boolean(latestBlocks));
   return (
     <>
       <h1 className="App mt-4 mb-20 font-bold">Last Block: {blockNumber}</h1>
-      {!loading && (
+      {(latestBlocks.length === 0 ? false : true) && (
         <div className="flex flex-col md:flex-row gap-4 mx-6">
           <TransactionsContainer
             blockNumber={blockNumber}
