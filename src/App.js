@@ -35,7 +35,6 @@ const override = {
 };
 function App() {
   const [blockNumber, setBlockNumber] = useState();
-  const [lastBlock, setLastBlock] = useState(null);
   const [latestBlocks, setLatestBlocks] = useState([]);
   const [transactions, setTransactions] = useState([]);
   let [loading, setLoading] = useState(true);
@@ -47,7 +46,6 @@ function App() {
         const latestBlockNumber = await fetchBlockNumber();
         setBlockNumber(latestBlockNumber);
         const lastBlock = await fetchTransactions(latestBlockNumber);
-        setLastBlock(lastBlock);
 
         if (blockNumber) {
           const lastBlockNumbers = [];
