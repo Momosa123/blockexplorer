@@ -1,5 +1,4 @@
-import { Alchemy, Network } from "alchemy-sdk";
-import { useEffect, useState } from "react";
+import { useEffect, useState, uRef } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import TransactionsContainer from "./components/TransactionsContainer";
 import "./App.css";
@@ -8,60 +7,42 @@ import BlocksContainer from "./components/BlocksContainer";
 // Refer to the README doc for more information about using API
 // keys in client-side code. You should never do this in production
 // level code.
-const settings = {
-  apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
-  network: Network.ETH_MAINNET,
-};
+const url = " https://blockexplorerworker.mouhamadoul-sarr.workers.dev/";
 
 // In this week's lessons we used ethers.js. Here we are using the
 // Alchemy SDK is an umbrella library with several different packages.
 //
 // You can read more about the packages here:
 //   https://docs.alchemy.com/reference/alchemy-sdk-api-surface-overview#api-surface
-const alchemy = new Alchemy(settings);
 
-// Fonction utilitaire pour récupérer le numéro de bloc
-async function fetchBlockNumber() {
-  return await alchemy.core.getBlockNumber();
-}
-
-// Fonction utilitaire pour récupérer les transactions pour un bloc donné
-async function fetchTransactions(blockNumber) {
-  return await alchemy.core.getBlockWithTransactions(blockNumber);
-}
 const override = {
   display: "block",
   margin: "100px auto",
 };
 function App() {
-  const [blockNumber, setBlockNumber] = useState();
-  const [lastBlock, setLastBlock] = useState(null);
+  const [currentBlock, setCurrentBlock] = useState();
   const [latestBlocks, setLatestBlocks] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  let [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const interval = setInterval(() => setTicker(prev => prev + 1), 10000);
     async function fetchData() {
       try {
-        const latestBlockNumber = await fetchBlockNumber();
-        setBlockNumber(latestBlockNumber);
-        const lastBlock = await fetchTransactions(latestBlockNumber);
-        setLastBlock(lastBlock);
+        const response = await fetch(url, {
+          method: "GET", // Méthode GET
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // Vous pouvez également ajouter d'autres options ici si nécessaire
+        });
+        const data = await response.json();
+        console.log(data);
 
-        if (blockNumber) {
-          const lastBlockNumbers = [];
-          for (let i = 1; i < 7; i++) {
-            const num = blockNumber - i;
-            lastBlockNumbers.push(num);
-          }
-          const responses = await Promise.all(
-            lastBlockNumbers.map(element => fetchTransactions(element))
-          );
+        // Mettre à jour l'état uniquement si le composant est toujours monté
 
-          setLatestBlocks(responses);
-          setTransactions(lastBlock.transactions.slice(0, 6));
-        }
+        setCurrentBlock(data.lastBlock);
+        setLatestBlocks(data.lastBlocks);
+        setTransactions(data.lastTransactions);
       } catch (error) {
         console.log("Something went wrong");
       } finally {
@@ -69,20 +50,26 @@ function App() {
       }
     }
     fetchData();
-  }, [blockNumber]);
-  console.log(Boolean(latestBlocks));
+  }, []);
+  console.log(transactions);
+
   return (
     <>
-      <h1 className="App mt-4 mb-20 font-bold">Last Block: {blockNumber}</h1>
-      {(latestBlocks.length === 0 ? false : true) && (
-        <div className="flex flex-col md:flex-row gap-4 mx-6">
-          <TransactionsContainer
-            blockNumber={blockNumber}
-            transactions={transactions}
-          />
-          <BlocksContainer latestBlocks={latestBlocks} />
+      {!loading && (
+        <div>
+          <h1 className="App mt-4 mb-20 font-bold">
+            Last Block: {currentBlock.number}
+          </h1>
+          <div className="flex flex-col md:flex-row gap-4 mx-6">
+            <TransactionsContainer
+              blockNumber={currentBlock.number}
+              transactions={transactions}
+            />
+            <BlocksContainer latestBlocks={latestBlocks} />
+          </div>
         </div>
       )}
+
       <ClipLoader
         color="blue"
         loading={loading}

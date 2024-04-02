@@ -1,7 +1,7 @@
 import { LuBox } from "react-icons/lu";
 const BlockInfo = ({ block, index }) => {
-  const baseFee = BigInt(block.baseFeePerGas._hex).toString();
-  const gasUsed = BigInt(block.gasUsed._hex).toString();
+  const baseFee = block.baseFeePerGas;
+  const gasUsed = block.gasUsed;
   let ETH = (gasUsed * baseFee) / 10 ** 19;
   const minerAddress = block.miner;
   const blockNumber = block.number;
