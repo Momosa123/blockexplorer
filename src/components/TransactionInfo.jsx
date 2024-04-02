@@ -8,7 +8,7 @@ const TransactionInfo = ({ transaction, index }) => {
       <div
         className={`flex align-items-center box-content h-12 justify-between gap-2 py-4 ${dynamicBorder}`}
       >
-        <div className="flex align-items-center ">
+        <div className="flex align-items-center gap-1 ">
           <div className="none sm-flex w-11 content-center bg-gray-200 text-muted rounded p-3">
             <IoReceiptOutline />
           </div>
@@ -18,7 +18,7 @@ const TransactionInfo = ({ transaction, index }) => {
         </div>
         <div className="flex flex-col text-left">
           <div>
-            <span className="font-semibold">From:</span>
+            <span className="font-semibold">From: </span>
             <span className="blockInfo">
               {transaction.from.slice(0, 20)}...
             </span>
