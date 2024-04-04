@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { FaEthereum } from "react-icons/fa6";
-
 import ClipLoader from "react-spinners/ClipLoader";
 import TransactionsContainer from "./components/TransactionsContainer";
 import "./App.css";
@@ -25,6 +24,7 @@ function App() {
   const [currentBlock, setCurrentBlock] = useState();
   const [latestBlocks, setLatestBlocks] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [ethPrice, setEthPrice] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ function App() {
         setCurrentBlock(data.lastBlock);
         setLatestBlocks(data.lastBlocks);
         setTransactions(data.lastTransactions);
+        setEthPrice(data.ethPrice.ethereum.usd);
       } catch (error) {
         console.log("Something went wrong");
       } finally {
@@ -59,36 +60,63 @@ function App() {
     <>
       {!loading && (
         <div className="App ">
-          <div className="mt-4 mb-20">
-            <div className="none  mb-3 sm:flex gap-2 justify-center items-center  text-muted rounded p-3">
+          <div>
+            <div className="none  mb-3 sm:flex gap-2 justify-center items-center  text-muted rounded ">
+              <h1 className="font-bold bg-white text-custom-blue text-2xl w-full p-10 ">
+                Ethereum Blockexplorer
+              </h1>
+            </div>
+            <div className="flex items-center bg-black py-8">
               <div>
-                <FaEthereum className="  text-4xl text-custom-blue" />
+                {" "}
+                <h2 className="text-left text-xl mx-auto w-2/3 text-white rounded py-1">
+                  This website is an example of an Ethereum blockexplorer.
+                </h2>
+                <span className="text-sm block  mx-auto w-2/3 text-left  text-white ">
+                  Blockexplorers like{" "}
+                  <a
+                    className="text-blue-300"
+                    href="https://etherscan.io/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    etherscan
+                  </a>{" "}
+                  give us the ability to view lots of different information
+                  about the blockchain. You can see the frontend code{" "}
+                  <a
+                    className="text-blue-300"
+                    href="https://github.com/Momosa123/front_blockexplorer"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    here
+                  </a>
+                </span>
               </div>
 
-              <h1 className="font-bold text-custom-blue text-2xl">EtherScan</h1>
+              <div className="w-1/3 grid grid-rows-2  grid-flow-col gap-1 h-fit ">
+                <FaEthereum className="text-custom-blue justify-self-end row-span-2 col-span-1  text-4xl " />
+                <span className="justify-self-start text-white">
+                  ETHER price:
+                </span>
+                <span className="justify-self-start text-white">
+                  {" "}
+                  ${ethPrice}
+                </span>
+              </div>
             </div>
-            <h2 className="mx-auto w-1/3 bg-custom-blue rounded p-2">
-              This website is an example of an Ethereum blockexplorer.
-              Blockexplorers give us the ability to view lots of different
-              information about the blockchain. You can see the frontend code{" "}
-              <a
-                className="text-blue-100"
-                href="https://github.com/Momosa123/front_blockexplorer"
-                target="_blank"
-                rel="noreferrer"
-              >
-                here
-              </a>
-            </h2>
           </div>
-          <div></div>
-          <div></div>
-          <div className="flex flex-col md:flex-row gap-4 mx-6">
+
+          <div className="flex flex-col md:flex-row gap-4 px-6 py-2 ">
             <TransactionsContainer
               blockNumber={currentBlock.number}
               transactions={transactions}
             />
-            <BlocksContainer latestBlocks={latestBlocks} />
+            <BlocksContainer
+              latestBlocks={latestBlocks}
+              blockNumber={currentBlock.number}
+            />
           </div>
         </div>
       )}

@@ -9,7 +9,7 @@ const TransactionInfo = ({ transaction, index }) => {
         className={`flex align-items-center box-content h-12 justify-between gap-2 py-4 ${dynamicBorder}`}
       >
         <div className="flex align-items-center gap-1 ">
-          <div className="none sm-flex w-11 content-center bg-gray-200 text-muted rounded p-3">
+          <div className="none sm-flex w-11 content-center bg-gray-200 text-muted rounded-md p-3">
             <IoReceiptOutline />
           </div>
           <span className="content-center blockInfo">
