@@ -62,7 +62,7 @@ function App() {
         <div className="App ">
           <div>
             <div className="none  mb-3 sm:flex gap-2 justify-center items-center  text-muted rounded ">
-              <h1 className="font-bold bg-white text-custom-blue text-2xl w-full p-10 ">
+              <h1 className="font-bold bg-white text-custom-blue text-2xl w-full p-8 ">
                 Ethereum Blockexplorer
               </h1>
             </div>
