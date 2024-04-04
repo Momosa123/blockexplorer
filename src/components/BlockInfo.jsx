@@ -19,13 +19,17 @@ const BlockInfo = ({ block, index }) => {
             <LuBox className="block" />
           </div>
 
-          <div className="content-center blockInfo">{blockNumber}</div>
+          <div className="content-center text-custom-blue">{blockNumber}</div>
         </div>
         <div className="content-center">
           <span className="font-semibold">Fee recipient: </span>
-          <span className="blockInfo">{minerAddress.slice(0, 20)}...</span>
+          <span className="text-custom-blue">
+            {minerAddress.slice(0, 20)}...
+          </span>
         </div>
-        <div className="blockInfo content-center">{ETH.toFixed(5)} Eth</div>
+        <div className="text-custom-blue content-center">
+          {ETH.toFixed(5)} Eth
+        </div>
       </div>
     </>
   );
