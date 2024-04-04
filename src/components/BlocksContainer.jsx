@@ -3,7 +3,7 @@ import InfoHeader from "./InfoHeader";
 const BlocksContainer = ({ latestBlocks, blockNumber }) => {
   return (
     <div className="mx-auto w-11/12 rounded-lg bg-slate-50 border-solid border-1  ">
-      <InfoHeader text={`Last Block $`} blockNumber={blockNumber} />
+      <InfoHeader text="Last Block " />
 
       <ul className="p-4 pt-0">
         {latestBlocks.map((block, i) => (
