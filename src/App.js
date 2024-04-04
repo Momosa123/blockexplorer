@@ -1,4 +1,6 @@
-import { useEffect, useState, uRef } from "react";
+import { useEffect, useState } from "react";
+import { FaEthereum } from "react-icons/fa6";
+
 import ClipLoader from "react-spinners/ClipLoader";
 import TransactionsContainer from "./components/TransactionsContainer";
 import "./App.css";
@@ -56,10 +58,31 @@ function App() {
   return (
     <>
       {!loading && (
-        <div>
-          <h1 className="App mt-4 mb-20 font-bold">
-            Last Block: {currentBlock.number}
-          </h1>
+        <div className="App ">
+          <div className="mt-4 mb-20">
+            <div className="none  mb-3 sm:flex gap-2 justify-center items-center  text-muted rounded p-3">
+              <div>
+                <FaEthereum className="  text-4xl text-custom-blue" />
+              </div>
+
+              <h1 className="font-bold text-custom-blue text-2xl">EtherScan</h1>
+            </div>
+            <h2 className="mx-auto w-1/3 bg-custom-blue rounded p-2">
+              This website is an example of an Ethereum blockexplorer.
+              Blockexplorers give us the ability to view lots of different
+              information about the blockchain. You can see the frontend code{" "}
+              <a
+                className="text-blue-100"
+                href="https://github.com/Momosa123/front_blockexplorer"
+                target="_blank"
+                rel="noreferrer"
+              >
+                here
+              </a>
+            </h2>
+          </div>
+          <div></div>
+          <div></div>
           <div className="flex flex-col md:flex-row gap-4 mx-6">
             <TransactionsContainer
               blockNumber={currentBlock.number}
