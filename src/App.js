@@ -29,7 +29,7 @@ function App() {
       setTransactions,
       setLoading
     );
-  }, []);
+  }, [blockNumber]);
   console.log(Boolean(latestBlocks));
   return (
     <>
