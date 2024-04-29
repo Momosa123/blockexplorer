@@ -17,7 +17,7 @@ function App() {
   const [blockNumber, setBlockNumber] = useState();
   const [latestBlocks, setLatestBlocks] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  let [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // const interval = setInterval(() => setTicker(prev => prev + 1), 10000);
@@ -29,7 +29,7 @@ function App() {
       setTransactions,
       setLoading
     );
-  }, [blockNumber]);
+  }, []);
   console.log(Boolean(latestBlocks));
   return (
     <>
