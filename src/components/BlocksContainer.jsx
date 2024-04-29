@@ -2,7 +2,7 @@ import BlockInfo from "./BlockInfo";
 import InfoHeader from "./InfoHeader";
 const BlocksContainer = ({ latestBlocks }) => {
   return (
-    <div className="mx-auto w-11/12 rounded border-solid border-2 border-sky-600 ">
+    <div className="mx-auto w-11/12 rounded bg-slate-50 border-solid border-2 border-sky-600 ">
       <InfoHeader text={"Latest Blocks"} />
 
       <ul className="p-4 pt-0">
