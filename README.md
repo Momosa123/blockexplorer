@@ -31,3 +31,4 @@ In the frontend it is a react web app with Tailwind for styling. In the cloudfla
 ## 4. Deployment
 
 The frontend and the worker are hosted on cloudflare. The frontend is connected to cloudflare via github for continious deploymentt.
+You can visit the live page here: https://front-blockexplorer.pages.dev/
